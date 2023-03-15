@@ -2,8 +2,9 @@ import sys
 
 class Board():
 
+    #Initializes our board into into 9 rows of 9 elements each
     def __init__(self, input):
-        input.strip()
+        input = input.replace(" ", "")
         if (len(input) != 81):
             sys.exit("Error in input, board does not have 81 values")
 
@@ -11,7 +12,9 @@ class Board():
 
         for i in range(0,9):
             row = input[i*9:(i+1)*9]
-            self.board.append(row)
+            integerRow = [int(value) for value in row]
+            self.board.append(integerRow)
+        
 
     def getValue(self,rowIndex, columnIndex):
         return self.board[rowIndex][columnIndex]
@@ -40,4 +43,15 @@ class Board():
             for j in range(columnLowerBound, columnLowerBound+3):
                 square.append(self.board[i][j])
         return square.count(value) == 1
+    
+    def printBoard(self):
+        for j,row in enumerate(self.board):
+            if(j % 3 == 0):
+                print("_________________________")
+            for i,value in enumerate(row):
+                if(i % 3 == 0):
+                    print("|", end= " ")
+                print(f"{value}", end=" ")
+            print("|")
+        print("_________________________")
         
